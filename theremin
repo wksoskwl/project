@@ -1,10 +1,20 @@
+#define Do 262
+#define Re 294
+#define Mi 330
+#define Pa 349
+#define So 392
+#define La 440
+#define Si 494
+
 int cm1 = 0;
 int cm2 = 0;
 int var = 0;
+int umarr[180] = {0};
+int cnt = 0;
 
 long Distance(int triggerPin, int echoPin)
 {
-  pinMode(triggerPin, OUTPUT);  // Clear the trigger
+  pinMode(triggerPin, OUTPUT);  
   digitalWrite(triggerPin, LOW);
   delayMicroseconds(2);
   digitalWrite(triggerPin, HIGH);
@@ -22,29 +32,55 @@ void setup()
 
 void loop()
 {
-  cm1 = 0.01723 * Distance(7, 7);
-  cm2 = 0.01723 * Distance(8, 8);
-  delay(100);
-  if(cm2<100)
-  	var = 0;
-  else if(cm2<200)
-    var = 250;
+  if(digitalRead(2) == 1)
+  {
+	  cm1 = 0.01723 * Distance(7, 7);
+	  cm2 = 0.01723 * Distance(8, 8);
+	  delay(100);
+	  
+	  if(cm2<100)
+	  	var = 0;
+	  else if(cm2<200)
+	    var = 250;
+	  else
+	    var = 500;
+    
+	  int um = 0;
+  
+	  if(cm1<30)
+	    um = 0;
+	  else if(cm1< 50)
+	  	um = Do + var;
+  	  else if(cm1< 70)
+	   	um = Re + var;
+  	  else if(cm1< 90)
+	  	um = Mi + var;
+	  else if(cm1<110)
+	  	um = Pa + var;
+	  else if(cm1<130)
+	  	um = So + var;
+	  else if(cm1<150)
+	  	um = La + var;
+	  else if(cm1<170)
+  		um = Si + var;
+    
+      umarr[cnt++] = um;
+    
+  	  if(cm1<30)
+    	noTone(9);
+  	  else
+      	tone(9,um);
+    
+  	  delay(1000);
+  }
   else
-    var = 500;
-  if(cm1<30)
+  {
     noTone(9);
-  else if(cm1<50)
-  	tone(9,262+var,250);
-  else if(cm1<70)
-  	tone(9,294+var,250);
-  else if(cm1<90)
-  	tone(9,330+var,250);
-  else if(cm1<110)
-  	tone(9,349+var,250);
-  else if(cm1<130)
-  	tone(9,392+var,250);
-  else if(cm1<150)
-  	tone(9,440+var,250);
-  else if(cm1<170)
-  	tone(9,494+var,250);
+    delay(2000);
+    for(cnt = 0;umarr[cnt]!='\0';cnt++)
+    {
+      tone(9,umarr[cnt]);
+      delay(1000);
+    }
+  }
 }

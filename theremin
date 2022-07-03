@@ -9,7 +9,7 @@
 int cm1 = 0;
 int cm2 = 0;
 int var = 0;
-int umarr[180] = {0};
+int umarr[200] = {0};
 int cnt = 0;
 
 long Distance(int triggerPin, int echoPin)

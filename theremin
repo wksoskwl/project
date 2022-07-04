@@ -71,7 +71,7 @@ void loop()
   	  else
       	tone(9,um);
     
-  	  delay(1000);
+  	  delay(2000);
   }
   else
   {

@@ -1,9 +1,9 @@
 #include<SoftwareSerial.h>
 SoftwareSerial BT(2,3);
 
-int R = A0;
-int G = A1;
-int B = A2;
+int R = 13;
+int G = 12;
+int B = 11;
 
 void RGB(int r,int g,int b)
 {
